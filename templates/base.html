@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}PetCare{% endblock %} | Gestão Veterinária</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="{{ url_for('index') }}"><span class="brand-icon">🐾</span><span>PetCare<small>GESTÃO VETERINÁRIA</small></span></a>
+  <button class="menu-toggle" onclick="document.querySelector('.nav').classList.toggle('open')">☰</button>
+  <nav class="nav">
+    <a href="{{ url_for('index') }}">Início</a>
+    <a href="{{ url_for('tutores') }}">Tutores</a>
+    <a href="{{ url_for('animais') }}">Animais</a>
+    <a href="{{ url_for('consultas') }}">Consultas</a>
+    <a href="{{ url_for('estoque') }}">Estoque</a>
+  </nav>
+</header>
+<main class="container">
+  {% with mensagens = get_flashed_messages(with_categories=true) %}
+    {% for categoria, mensagem in mensagens %}
+      <div class="alert {{ categoria }}">{{ mensagem }}</div>
+    {% endfor %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+<footer>PetCare · Feito como projeto de estudo · Cuidado e organização em cada detalhe</footer>
+</body>
+</html>

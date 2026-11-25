@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block title %}Estoque{% endblock %}
+{% block content %}
+<div class="page-heading"><div><p class="eyebrow">SUPRIMENTOS</p><h1>Estoque de medicamentos</h1><p>Confira o que temos disponível para ajudar nos cuidados com os animais.</p></div></div>
+<form class="panel form-panel" method="post"><h2>Adicionar medicamento</h2><div class="form-grid"><label>Nome *<input name="nome" required placeholder="Nome do medicamento"></label><label>Quantidade *<input type="number" min="0" name="quantidade" required value="0"></label></div><label>Validade<input type="date" name="validade"></label><button class="btn">Adicionar ao estoque</button></form>
+<section class="panel"><h2>Itens cadastrados</h2><div class="table-wrap"><table><thead><tr><th>Medicamento</th><th>Quantidade</th><th>Validade</th><th>Ação</th></tr></thead><tbody>{% for m in medicamentos %}<tr><td>{{ m.nome }}</td><td>{{ m.quantidade }}</td><td>{{ m.validade or '—' }}</td><td><form method="post" action="{{ url_for('medicamento_delete', med_id=m.id) }}"><button class="link-danger">Excluir</button></form></td></tr>{% else %}<tr><td colspan="4" class="empty">Estoque vazio.</td></tr>{% endfor %}</tbody></table></div></section>
+{% endblock %}

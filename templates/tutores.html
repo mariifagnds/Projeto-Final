@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block title %}Tutores{% endblock %}
+{% block content %}
+<div class="page-heading"><div><p class="eyebrow">CADASTROS</p><h1>Tutores</h1><p>Veja quem são as pessoas que confiam seus pets à nossa equipe.</p></div><a class="btn" href="{{ url_for('tutor_form') }}">＋ Novo tutor</a></div>
+<form class="search" method="get"><input name="q" value="{{ termo }}" placeholder="Buscar tutor pelo nome"><button class="btn">Buscar</button></form>
+<section class="panel"><div class="table-wrap"><table><thead><tr><th>Nome</th><th>Telefone</th><th>E-mail</th><th>Animais</th><th>Ações</th></tr></thead><tbody>
+{% for t in tutores %}<tr><td><strong>{{ t.nome }}</strong></td><td>{{ t.telefone }}</td><td>{{ t.email or '—' }}</td><td>{{ t.total_animais }}</td><td class="actions"><a href="{{ url_for('tutor_form', tutor_id=t.id) }}">Editar</a><form method="post" action="{{ url_for('tutor_delete', tutor_id=t.id) }}" onsubmit="return confirm('Excluir este tutor?')"><button class="link-danger">Excluir</button></form></td></tr>
+{% else %}<tr><td colspan="5" class="empty">Nenhum tutor encontrado.</td></tr>{% endfor %}
+</tbody></table></div></section>
+{% endblock %}

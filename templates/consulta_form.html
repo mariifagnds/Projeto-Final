@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% block title %}{{ 'Editar consulta' if consulta else 'Nova consulta' }}{% endblock %}
+{% block content %}
+<div class="page-heading"><div><p class="eyebrow">AGENDA</p><h1>{{ 'Editar consulta' if consulta else 'Agendar consulta' }}</h1><p>Registre os dados do atendimento.</p></div></div>
+{% if not animais %}<div class="alert erro">Cadastre um animal antes de agendar. <a href="{{ url_for('animal_form') }}">Cadastrar animal</a></div>{% endif %}
+<form class="panel form-panel" method="post">
+<label>Animal *<select name="animal_id" required><option value="">Selecione</option>{% for a in animais %}<option value="{{ a.id }}" {% if consulta and consulta.animal_id == a.id %}selected{% endif %}>{{ a.nome }} — {{ a.especie }}</option>{% endfor %}</select></label>
+<div class="form-grid"><label>Data *<input type="date" name="data_consulta" required value="{{ consulta.data_consulta if consulta else '' }}"></label><label>Horário *<input type="time" name="horario" required value="{{ consulta.horario if consulta else '' }}"></label></div>
+<label>Motivo do atendimento *<input name="motivo" required value="{{ consulta.motivo if consulta else '' }}" placeholder="Ex.: Consulta de rotina"></label>
+<label>Status<select name="status">{% for s in ['Agendada','Realizada','Cancelada'] %}<option {% if consulta and consulta.status == s %}selected{% endif %}>{{ s }}</option>{% endfor %}</select></label>
+<div class="form-actions"><a class="btn btn-outline" href="{{ url_for('consultas') }}">Cancelar</a><button class="btn" {% if not animais %}disabled{% endif %}>Salvar consulta</button></div>
+</form>{% endblock %}

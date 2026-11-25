@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block title %}{{ 'Editar tutor' if tutor else 'Novo tutor' }}{% endblock %}
+{% block content %}
+<div class="page-heading"><div><p class="eyebrow">CADASTRO</p><h1>{{ 'Editar tutor' if tutor else 'Novo tutor' }}</h1><p>Informe os dados do responsável.</p></div></div>
+<form class="panel form-panel" method="post">
+<label>Nome completo *<input name="nome" required value="{{ tutor.nome if tutor else '' }}" placeholder="Ex.: Ana Souza"></label>
+<label>Telefone *<input name="telefone" required value="{{ tutor.telefone if tutor else '' }}" placeholder="(00) 00000-0000"></label>
+<label>E-mail<input type="email" name="email" value="{{ tutor.email if tutor else '' }}" placeholder="email@exemplo.com"></label>
+<div class="form-actions"><a class="btn btn-outline" href="{{ url_for('tutores') }}">Cancelar</a><button class="btn">Salvar tutor</button></div>
+</form>{% endblock %}
